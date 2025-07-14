@@ -2,7 +2,6 @@ import { User } from '../models/user';
 import { userDB } from '../db/user.sql';
 import bcrypt from 'bcrypt';
 import { tokenService } from './token.service';
-import { Token } from '../models/token';
 import { UserWithToken } from '../types/authorization';
 
 const registration = async ({

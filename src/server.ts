@@ -3,10 +3,15 @@ import cors from 'cors';
 import { router } from './router';
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
+import http from 'http';
+import { initSocket } from './sockets';
 
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
+initSocket(server);
+
 app.use(express.json());
 app.use('/api', router);
 app.use(cors());
@@ -22,8 +27,6 @@ export const pool = new Pool({
   idleTimeoutMillis: 30000,
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
-
-// await pool.end();

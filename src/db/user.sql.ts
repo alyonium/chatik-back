@@ -1,7 +1,7 @@
 import { pool } from '../server';
 import { User } from '../models/user';
 
-export const create = async ({
+const create = async ({
   username,
   password,
 }: Pick<User, 'password' | 'username'>): Promise<User> => {
@@ -13,7 +13,7 @@ export const create = async ({
   return res.rows[0] || null;
 };
 
-export const login = async ({
+const login = async ({
   username,
   password,
 }: Pick<User, 'password' | 'username'>): Promise<User> => {
@@ -25,7 +25,7 @@ export const login = async ({
   return res.rows[0] || null;
 };
 
-export const findByUsername = async ({
+const findByUsername = async ({
   username,
 }: Pick<User, 'username'>): Promise<User> => {
   const res = await pool.query(`SELECT * FROM users WHERE username=$1`, [
@@ -35,7 +35,7 @@ export const findByUsername = async ({
   return res.rows[0] || null;
 };
 
-export const findById = async ({ id }: Pick<User, 'id'>): Promise<User> => {
+const findById = async ({ id }: Pick<User, 'id'>): Promise<User> => {
   const res = await pool.query(`SELECT * FROM users WHERE id=$1`, [id]);
 
   return res.rows[0] || null;
