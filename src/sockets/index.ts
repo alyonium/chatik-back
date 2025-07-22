@@ -2,9 +2,16 @@ import { Server as IOServer } from 'socket.io';
 import { Server } from 'http';
 import { messageService } from '../services/message.service';
 import { tokenService } from '../services/token.service';
+import { Message, MessageResponse } from '../models/message';
 
 export const initSocket = (server: Server) => {
-  const io = new IOServer(server);
+  const io = new IOServer(server, {
+    cors: {
+      origin: 'http://localhost:5173',
+      methods: ['GET', 'POST'],
+      credentials: true,
+    },
+  }).of('/chat');
 
   io.use((socket, next) => {
     const tokenWithBearer = socket.handshake.auth.token;
@@ -28,12 +35,21 @@ export const initSocket = (server: Server) => {
     }
   });
 
-  io.on('connection', (socket) => {
-    console.log('User connected:', socket.id);
+  io.on('connection', async (socket) => {
+    const user = socket.data.user;
 
-    socket.on('message', async (msg) => {
-      await messageService.create(msg);
-      io.emit('message', msg);
+    console.log('User connected:', socket.id, user.id);
+
+    const messages = await messageService.getAll();
+    socket.emit('chat history', messages);
+
+    socket.on('new message', async ({ content }: Pick<Message, 'content'>) => {
+      const message: MessageResponse = await messageService.create({
+        content,
+        userId: user.id,
+      });
+
+      io.emit('new message', message);
     });
 
     socket.on('disconnect', () => {

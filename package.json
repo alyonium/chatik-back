@@ -4,7 +4,6 @@
     "dev": "nodemon src/server.ts"
   },
   "dependencies": {
-    "@apollo/server": "^4.12.2",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

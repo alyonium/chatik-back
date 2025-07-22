@@ -12,9 +12,10 @@ const app = express();
 const server = http.createServer(app);
 initSocket(server);
 
+//TODO used for dev, remove { origin: 'http://localhost:5173' }
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json());
 app.use('/api', router);
-app.use(cors());
 
 const PORT = Number.parseInt(process.env.PORT || '3000');
 
