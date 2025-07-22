@@ -38,7 +38,7 @@ export const initSocket = (server: Server) => {
   io.on('connection', async (socket) => {
     const user = socket.data.user;
 
-    console.log('User connected:', socket.id, user.id);
+    console.log('User connected:', socket.id);
 
     const messages = await messageService.getAll();
     socket.emit('chat history', messages);
