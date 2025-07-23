@@ -30,7 +30,8 @@ export const initSocket = (server: Server) => {
 
       socket.data.user = user;
       next();
-    } catch (err) {
+    } catch (error: unknown) {
+      console.error(error);
       return next(new Error('Invalid token'));
     }
   });
