@@ -4,7 +4,7 @@
     "dev": "nodemon src/server.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "build": "tsc",
+    "build": "npm install && tsc",
     "start": "node dist/server.js"
   },
   "dependencies": {
