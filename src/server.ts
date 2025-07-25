@@ -12,14 +12,14 @@ const app = express();
 const server = http.createServer(app);
 initSocket(server);
 
-//TODO used for dev, remove { origin: 'http://localhost:5173' }
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_ORIGIN }));
 app.use(express.json());
 app.use('/api', router);
 
 const PORT = Number.parseInt(process.env.PORT || '3000');
 
 export const pool = new Pool({
+  connectionString: process.env.DB_URL,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,

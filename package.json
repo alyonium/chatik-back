@@ -3,7 +3,9 @@
     "start-db": "docker-compose up -d",
     "dev": "nodemon src/server.ts",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "@eslint/js": "^9.31.0",
