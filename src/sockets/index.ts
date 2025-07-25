@@ -4,10 +4,10 @@ import { messageService } from '../services/message.service';
 import { tokenService } from '../services/token.service';
 import { Message, MessageResponse } from '../models/message';
 
-export const initSocket = (server: Server, origin: string) => {
+export const initSocket = (server: Server) => {
   const io = new IOServer(server, {
     cors: {
-      origin,
+      origin: process.env.CLIENT_ORIGIN,
       methods: ['GET', 'POST'],
       credentials: true,
     },
