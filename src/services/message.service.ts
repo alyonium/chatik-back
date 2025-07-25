@@ -21,7 +21,7 @@ const create = async ({
 const getAll = async (): Promise<MessageResponse[]> => {
   const messages = await messageDB.getAll();
 
-  if (!messages || !messages.length) {
+  if (!messages) {
     throw new Error('Error');
   }
 
