@@ -15,12 +15,12 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 const server = http_1.default.createServer(app);
 (0, sockets_1.initSocket)(server);
-//TODO used for dev, remove { origin: 'http://localhost:5173' }
-app.use((0, cors_1.default)({ origin: 'http://localhost:5173', credentials: true }));
+app.use((0, cors_1.default)({ origin: process.env.CLIENT_ORIGIN }));
 app.use(express_1.default.json());
 app.use('/api', router_1.router);
 const PORT = Number.parseInt(process.env.PORT || '3000');
 exports.pool = new pg_1.Pool({
+    connectionString: process.env.DB_URL,
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
