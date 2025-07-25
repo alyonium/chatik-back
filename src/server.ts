@@ -19,11 +19,7 @@ app.use('/api', router);
 const PORT = Number.parseInt(process.env.PORT || '3000');
 
 export const pool = new Pool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: Number.parseInt(process.env.DB_PORT || '5432'),
+  connectionString: process.env.DB_URL,
   idleTimeoutMillis: 30000,
 });
 
