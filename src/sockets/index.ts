@@ -4,10 +4,10 @@ import { messageService } from '../services/message.service';
 import { tokenService } from '../services/token.service';
 import { Message, MessageResponse } from '../models/message';
 
-export const initSocket = (server: Server) => {
+export const initSocket = (server: Server, origin: string) => {
   const io = new IOServer(server, {
     cors: {
-      origin: 'http://localhost:5173',
+      origin,
       methods: ['GET', 'POST'],
       credentials: true,
     },
